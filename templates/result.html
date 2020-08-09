@@ -1,0 +1,154 @@
+{% extends 'layout.html'%}
+{% block body %}
+
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{url_for('static', filename='img/heart_res.jpg')}}    ')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+              <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10 mx-auto">
+<!--                                    <h2>Result of XYZ</h2>-->
+                                          {% if prob>0.60 %}
+                                              <div class="alert alert-success" role="alert">
+                                                  <h2>{{name}} You are safe</h2>
+                                              </div>
+                                          {% elif prob>0.40 and prob<0.60 %}
+                                              <div class="alert alert-warning" role="alert">
+                                                  <h2>{{name}}You should visit to your doctor</h2>
+                                              </div>
+
+                                          {% else %}
+                                              <div class="alert alert-danger" role="alert">
+                                                  <h2>{{name}}You have high chance of heart disease</h2>
+                                                </div>
+                                            {% endif %}
+                              </div>
+                        </div>
+              </div>
+<!--            <h1>Contact Me</h1>-->
+<!--            <span class="subheading">Have questions? I have answers.</span>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+ 
+
+  <!-- Main Content -->
+
+  
+  <div class="container-fluid">
+  
+    <div class="row">
+         
+      <div class="col-sm">
+        <!--<p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>-->
+        <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+        <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+        <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+
+        <!-- 'age', 'gender', 'height', 'weight', 'ap_hi', 'ap_lo', 'smoke', 'alco',
+              'active', 'cholesterol_2', 'cholesterol_3', 'gluc_2', 'gluc_3' -->
+
+              
+                             
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+        {% for col, val in columns|zip(values) %}
+         <!-- <form name="sentMessage" id="contactForm" action='/contact' method='post' novalidate>
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>{{col}}</label>
+                <input type="text" class="form-control" placeholder={{col.title()}} id={{col}} name={{col}} required data-validation-required-message="Please enter " {{col}}>
+                <p class="help-block text-danger"></p>
+              </div>
+            </div> -->
+
+              <tr>
+                <td>{{col}}</td>
+                <td>{{val}}</td>
+                
+              </tr>
+             
+            
+
+          {% endfor %}
+          </tbody>
+          </table>
+         
+        
+         
+          <div id="success"></div>
+          <div class="form-group">
+           <!-- <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button> -->
+          </div>
+        </form>
+      </div>
+
+      <div class="col-sm">
+
+      <div id="chartContainer" style="height: 500px; padding-top: 0px;"></div>
+
+          <script>
+            window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+              exportEnabled: true,
+              animationEnabled: true,
+              title:{
+                text: "{{name}} result..."
+              },
+              legend:{
+                cursor: "pointer",
+                itemclick: explodePie
+              },
+              data: [{
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}%</strong>",
+                indexLabel: "{name} - {y}%",
+                dataPoints: [
+                  { y: {{prob}}, name: "No Probability", exploded: true },
+                  { y: {{1-prob}}, name: "Yes Probability" },
+                 
+                  
+                ]
+              }]
+            });
+            chart.render();
+            }
+
+            function explodePie (e) {
+              if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+              } else {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+              }
+              e.chart.render();
+
+            }
+          </script>
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+
+
+
+  {% endblock %}

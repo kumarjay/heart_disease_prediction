@@ -1,0 +1,125 @@
+{% extends 'layout.html'%}
+{% block body %}
+
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{url_for('static', filename='img/heart.jpg')}}    ')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Contact Us</h1>
+            <span class="subheading">heartpredict12345@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+ 
+
+  <!-- Main Content -->
+  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 col-sm-push-2">
+        <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+        <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+        <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+        <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+
+        <!-- 'age', 'gender', 'height', 'weight', 'ap_hi', 'ap_lo', 'smoke', 'alco',
+              'active', 'cholesterol_2', 'cholesterol_3', 'gluc_2', 'gluc_3' -->
+
+        {% for col in columns %}
+         <form name="sentMessage" id="contactForm" action='/result' method='post' novalidate>
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>{{col}}</label>
+                <input type="text" class="form-control" placeholder={{col.title()}} id={{col}} name={{col}} required data-validation-required-message="Please enter " {{col}}>
+                <p class="help-block text-danger"></p>
+              </div>
+            </div> 
+
+                
+
+          {% endfor %}
+
+<!-- 'gender', 'smoke', 'alco','active', 'cholesterol', 'gluc' -->
+
+
+<select class="custom-select floating-label-form-group controls", name= 'gender'>
+  <option selected disabled class="text-hide">Select Gender</option>
+  <option value="1">Male</option>
+  <option value="0">Female</option>
+  
+</select>
+
+      <hr>    
+
+   <select class="custom-select floating-label-form-group controls", name='smoke'>
+  <option selected disabled class="text-hide">Smoke</option>
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+  
+</select>
+
+
+<hr>
+
+
+   <select class="custom-select floating-label-form-group controls", name= "alco">
+  <option selected disabled class="text-hide">Alcohal</option>
+ <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+
+<hr>
+
+   <select class="custom-select floating-label-form-group controls", name="active">
+  <option selected disabled>Active</option>
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+
+<hr>
+
+   <select class="custom-select custom-select-lg mb-5", name="cholesterol">
+  <option selected disabled>Cholesterol</option>
+  <option value="Low">Low</option>
+  <option value="Medium">Medium</option>
+  <option value="High">High</option>
+</select>
+<hr>
+
+   <select class="custom-select custom-select-lg mb-5", name="gluc">
+  <option selected disabled>Glucose</option>
+  <option value="Low">Low</option>
+  <option value="Medium">Medium</option>
+  <option value="High">High</option>
+</select>
+
+<hr>
+
+
+
+ 
+        
+         
+          <div id="success"></div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+          </div>
+        </form>
+      </div>
+
+     </div>
+    
+  </div>
+
+  <hr>
+
+
+
+  {% endblock %}
