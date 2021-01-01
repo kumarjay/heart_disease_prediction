@@ -5,7 +5,7 @@ pipeline {
         stage('build') {
             agent{
             docker {
-                    sudo image 'python:3.5.1' 
+                    image 'python:3.5.1' 
             }}
             steps {
                 //sh 'python --version'
