@@ -8,7 +8,7 @@ pipeline {
                     image 'python:3'
             }}
             steps {
-                sh 'python --version'
+                sh 'python -m app.py'
                 echo "Hello World"
             }
         }
