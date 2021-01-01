@@ -11,7 +11,7 @@ pipeline {
                     //the agent that Jenkins uses to run the Build stage of your Pipeline project.
                     //image 'python:2-alpine'
                     image "sudo docker build -t flask-app ."
-                    image "sudo docker run -p 8000:8000 --name flask-app -d flask-app "
+                    //image "sudo docker run -p 8000:8000 --name flask-app -d flask-app "
                 }
             }
             steps {
