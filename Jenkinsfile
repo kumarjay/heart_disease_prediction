@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('build') {
             agent{
-            sudo docker {
-                    image 'python:3.5.1' 
+            docker {
+                    sudo image 'python:3.5.1' 
             }}
             steps {
                 //sh 'python --version'
